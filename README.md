@@ -1,24 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Application to test some jquery stuff on ruby on rails and heroku platform.
 
-Things you may want to cover:
+Author : Alexandre Peccard
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Production link : https://todolist-thp-rennes.herokuapp.com
