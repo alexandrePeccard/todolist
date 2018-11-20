@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <% @tasks.each do |task|  %>
+      <div class="card col-3 mySlides">
+        <% unless task.image.nil? %>
+          <%= image_tag task.image, class: "rounded-circle" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		function carousel() {
+	    var i;
+	    var x = document.getElementsByClassName("mySlides");
+	    for (i = 0; i < x.length; i++) {
+	    	$(x[i]).fadeIn('slow');
+	      x[i].style.display = "none";
+	    }
+	    slideIndex++;
+	    if (slideIndex > x.length) {slideIndex = 1}
+	    x[slideIndex-1].style.display = "block";
+	    setTimeout(carousel, 5000); // Change image every 2 seconds
+		}
+
+		var slideIndex = 0;
+		carousel();
+	});
+</script>
