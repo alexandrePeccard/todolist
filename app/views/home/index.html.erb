@@ -1,22 +1,24 @@
 <h1 class="text-center mb-4">Welcome to my todolist app</h1>
 <%= render 'layouts/task_form'  %>
-<div class="container">
-  <ul>
-  <% @categories.each do  |category|%>
-  <li><%= category.title  %></li>
-  <div class="card">
-    <ul>
-      <% category.tasks.each do |task|  %>
-      <li>
-        <%= task.title  %>
-        <% unless task.deadline.nil? %>
-          , to read: <%= task.deadline.strftime('%D')  %>
-        <% end %>
+<div class="container borderless">
+  <ul class="list-group">
+    <% @categories.each do  |category|%>
+      <li class="list-group-item">
+        <button class="btn btn-info" id="id-btn-<%= category.title  %>"class="tablinks"> <%= category.title  %> </button>
       </li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
+      <div id="id-content-<%= category.title  %>"class="card tabcontent">
+        <ul class="list-group">
+          <% category.tasks.each do |task|  %>
+            <li class="list-group-item">
+              <%= task.title  %>
+              <% unless task.deadline.nil? %>
+              , to read: <%= task.deadline.strftime('%D')  %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </ul>
 </div>
 
@@ -31,3 +33,24 @@
     <% end %>
   </div>
 </div>
+<script type="text/javascript">
+  $(function() {
+    var container_base_id = 'id-content-';
+    var containers = $('[id*=' + container_base_id + ']');
+
+    var btn_base_id = 'id-btn-';
+    var btns = $('[id*=' + btn_base_id + ']'); 
+
+    containers.each(function() {
+      self = $(this);
+      self.toggle();
+    });
+    
+    btns.each(function() {
+      $(this).on('click', function() {
+        container_id = '#' + container_base_id + $(this).attr('id').split('-')[2];
+        $(container_id).toggle();
+      });
+    });
+  });
+</script>
