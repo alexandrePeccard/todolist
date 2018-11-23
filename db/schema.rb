@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2018_11_22_134737) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "mails", force: :cascade do |t|
+  create_table "emails", force: :cascade do |t|
     t.string "object"
     t.string "body"
     t.datetime "created_at", null: false

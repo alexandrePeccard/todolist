@@ -19,5 +19,5 @@ require 'faker'
 end
 
 10.times do
-	Mail.create(object: Faker::Lorem.sentence, body: Faker::Lorem.sentence).save
+	Email.create(object: Faker::Lorem.sentence, body: Faker::Lorem.sentence).save
 end

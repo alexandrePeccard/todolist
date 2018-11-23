@@ -41,7 +41,7 @@ ul li:hover {
       <div class="container" id="mail-body-<%= email.id %>">
         <h2> <%= email.object %> </h2>
         <p>
-          <%= email.body %> <%= button_to "Delete", mail_path(email), remote: true, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+          <%= email.body %> <%= button_to "Delete", email_path(email), remote: true, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
         </p>
       </div>
     <% end %>

@@ -1,12 +1,12 @@
-class MailsController < ApplicationController
+class EmailsController < ApplicationController
   def index
-  	@emails = Mail.all
+  	@emails = Email.all
   end
 
   def destroy
     @email_id = params.permit(:id)
     @email_id = @email_id[:id]
-    Mail.delete(@email_id)
+    Email.delete(@email_id)
 
     respond_to do |format|
     	format.html { redirect_to mail_url }

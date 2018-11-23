@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-	root to: "mails#index"
+	root to: "emails#index"
 	devise_for :users
-	resources :tasks, :mails, except: [:show]
+	resources :tasks, :emails, except: [:show]
 end
