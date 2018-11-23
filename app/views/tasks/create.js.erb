@@ -1,0 +1,4 @@
+$(document).ready(function() {
+	let new_task = $("<%= j (render 'layouts/task', task: @task) %>");
+	$('div#id-content-<%= @task.category.title.downcase.gsub('/', '').gsub(' ', '') %> ul').append(new_task);
+});

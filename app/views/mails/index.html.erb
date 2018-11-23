@@ -1,0 +1,87 @@
+<style>
+  #wrapper h1 {
+    text-align: center;
+  }
+  #wrapper {
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  #body-container h2 {
+    text-align: left;
+  }
+  #body-container div {
+    flex-direction: column;
+  }
+  .read {
+    font-weight:normal;
+  }
+  .unread {
+    font-weight:bold;
+  }
+ul li:hover {
+  cursor:pointer;
+}
+</style>
+
+<div id="wrapper" class="container borderless">
+  <div class="container"id="object-container">
+    <h1> Object </h1>
+    <ul id="mail-object" class="list-group">
+      <% @emails.each do | email | %>
+        <li id="mail-object-<%= email.id %>"class="list-group-item">
+          <span class="unread"><%= email.object %></span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="container"id="body-container">
+    <h1> Content </h1>
+    <% @emails.each do | email | %>
+      <div class="container" id="mail-body-<%= email.id %>">
+        <h2> <%= email.object %> </h2>
+        <p>
+          <%= email.body %> <%= button_to "Delete", mail_path(email), remote: true, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    var body_base_id = 'mail-body-';
+    var bodies = $('[id*=' + body_base_id + ']');
+
+    var object_base_id = 'mail-object-';
+    var objects = $('[id*=' + object_base_id + ']'); 
+
+    bodies.each(function() {
+      $(this).toggle();
+    });
+    
+    objects.each(function() {
+      $(this).on('click', function() {
+        var body_id = $(this).attr('id').split('-')[2];
+        var body_container_id = '#' + body_base_id + body_id;
+        id = $(this).attr('id');
+        $('#'+ id +' span').removeClass('unread');
+        $('#'+ id +' span').addClass('read');
+
+        bodies.each(function() {
+          if ($(this).attr('id') != (body_base_id + body_id)) {
+            if ($(this).css('display') == 'flex') {
+              $(this).css('display', "none");
+            }
+          }
+        });
+
+        if ($(body_container_id).css('display') == 'flex') {
+            $(body_container_id).css('display', "none");
+          } else {
+            $(body_container_id).css('display', "flex");
+          }
+      });
+    });
+  });
+</script>

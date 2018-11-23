@@ -1,4 +1,11 @@
-<div class="container">
+<style>
+#caroussel {
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+</style>
+<div class="container" id="caroussel">
   <div class="row">
     <% @tasks.each do |task|  %>
       <div class="card col-3 mySlides">

@@ -1,27 +1,53 @@
+<style>
+  #wrapper {
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  aside {
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+</style>
+
 <h1 class="text-center mb-4">Welcome to my todolist app</h1>
-<%= render 'layouts/task_form'  %>
-<div class="container borderless">
-  <ul class="list-group">
-    <% @categories.each do  |category|%>
-      <li class="list-group-item">
-        <button class="btn btn-info" id="id-btn-<%= category.title  %>"class="tablinks"> <%= category.title  %> </button>
-      </li>
-      <div id="id-content-<%= category.title  %>"class="card tabcontent">
-        <ul class="list-group">
-          <% category.tasks.each do |task|  %>
-            <li class="list-group-item">
-              <%= task.title  %>
-              <% unless task.deadline.nil? %>
-              , to read: <%= task.deadline.strftime('%D')  %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  </ul>
+<div id="wrapper" class="container borderless">
+  <%= render 'layouts/task_form'  %>
+  <aside>
+    <ul class="list-group">
+      <% @categories.each do  |category|%>
+        <li class="list-group-item">
+          <button
+            class="btn btn-info tablinks"
+            id="id-btn-<%= category.title.downcase.gsub('/', '').gsub(' ', '') %>"
+            >
+              <%= category.title.capitalize  %>
+          </button>
+        </li>
+        <div
+          id="id-content-<%= category.title.downcase.gsub('/', '').gsub(' ', '') %>"
+          class="card tabcontent"
+          >
+          <ul class="list-group">
+            <% category.tasks.each do |task|  %>
+              <li class="list-group-item">
+                <%= task.title.capitalize  %>
+                <br>
+                <% unless task.deadline.nil? %>
+                To read: <%= task.deadline.strftime('%D')  %>
+                <br>
+                <%= link_to "Edit this task", edit_task_path(task) %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </ul>
+  </aside>
 </div>
-  
+
 <%= render partial: "layouts/carroussel.html.erb" %>
 
 <script type="text/javascript">
@@ -39,8 +65,19 @@
     
     btns.each(function() {
       $(this).on('click', function() {
-        container_id = '#' + container_base_id + $(this).attr('id').split('-')[2];
-        $(container_id).toggle();
+        category_id = $(this).attr('id').split('-')[2]
+        container_id = '#' + container_base_id + category_id;
+        var object = $(container_id);
+
+        containers.each(function() {
+          if ($(this).attr('id') != container_id) {
+            if ($(this).css('display') == 'flex') {
+              $(this).toggle();
+            }
+          }
+        });
+
+        object.toggle();
       });
     });
   });
